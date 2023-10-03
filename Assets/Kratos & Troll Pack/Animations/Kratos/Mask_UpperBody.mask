@@ -1,0 +1,105 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!319 &31900000
+AvatarMask:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Mask_UpperBody
+  m_Mask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+  m_Elements:
+  - m_Path: 
+    m_Weight: 1
+  - m_Path: Armature
+    m_Weight: 0
+  - m_Path: Armature/_Root
+    m_Weight: 0
+  - m_Path: Armature/_Root/HandIK.L
+    m_Weight: 1
+  - m_Path: Armature/_Root/HandIK.L/LeftHand
+    m_Weight: 1
+  - m_Path: Armature/_Root/HandIK.L/LeftHand/LeftHandIndex1
+    m_Weight: 1
+  - m_Path: Armature/_Root/HandIK.L/LeftHand/LeftHandIndex1/LeftHandIndex2
+    m_Weight: 1
+  - m_Path: Armature/_Root/HandIK.L/LeftHand/LeftHandIndex1/LeftHandIndex2/LeftHandIndex3
+    m_Weight: 1
+  - m_Path: Armature/_Root/HandIK.L/LeftHand/LeftHandThumb1
+    m_Weight: 1
+  - m_Path: Armature/_Root/HandIK.L/LeftHand/LeftHandThumb1/LeftHandThumb2
+    m_Weight: 1
+  - m_Path: Armature/_Root/HandIK.L/LeftHand/LeftHandThumb1/LeftHandThumb2/LeftHandThumb3
+    m_Weight: 1
+  - m_Path: Armature/_Root/HandIK.R
+    m_Weight: 1
+  - m_Path: Armature/_Root/HandIK.R/RightHand
+    m_Weight: 1
+  - m_Path: Armature/_Root/HandIK.R/RightHand/RightHandIndex1
+    m_Weight: 1
+  - m_Path: Armature/_Root/HandIK.R/RightHand/RightHandIndex1/RightHandIndex2
+    m_Weight: 1
+  - m_Path: Armature/_Root/HandIK.R/RightHand/RightHandIndex1/RightHandIndex2/RightHandIndex3
+    m_Weight: 1
+  - m_Path: Armature/_Root/HandIK.R/RightHand/RightHandThumb1
+    m_Weight: 1
+  - m_Path: Armature/_Root/HandIK.R/RightHand/RightHandThumb1/RightHandThumb2
+    m_Weight: 1
+  - m_Path: Armature/_Root/HandIK.R/RightHand/RightHandThumb1/RightHandThumb2/RightHandThumb3
+    m_Weight: 1
+  - m_Path: Armature/_Root/HeelIK.L
+    m_Weight: 0
+  - m_Path: Armature/_Root/HeelIK.L/LeftFoot
+    m_Weight: 0
+  - m_Path: Armature/_Root/HeelIK.L/LeftFoot/LeftToeBase
+    m_Weight: 0
+  - m_Path: Armature/_Root/HeelIK.R
+    m_Weight: 0
+  - m_Path: Armature/_Root/HeelIK.R/RightFoot
+    m_Weight: 0
+  - m_Path: Armature/_Root/HeelIK.R/RightFoot/RightToeBase
+    m_Weight: 0
+  - m_Path: Armature/_Root/Hips
+    m_Weight: 1
+  - m_Path: Armature/_Root/Hips/AxeHook
+    m_Weight: 1
+  - m_Path: Armature/_Root/Hips/LeftUpLeg
+    m_Weight: 0
+  - m_Path: Armature/_Root/Hips/LeftUpLeg/LeftLeg
+    m_Weight: 0
+  - m_Path: Armature/_Root/Hips/RightUpLeg
+    m_Weight: 0
+  - m_Path: Armature/_Root/Hips/RightUpLeg/RightLeg
+    m_Weight: 0
+  - m_Path: Armature/_Root/Hips/Shield
+    m_Weight: 1
+  - m_Path: Armature/_Root/Hips/Spine
+    m_Weight: 1
+  - m_Path: Armature/_Root/Hips/Spine/Spine1
+    m_Weight: 1
+  - m_Path: Armature/_Root/Hips/Spine/Spine1/Spine2
+    m_Weight: 1
+  - m_Path: Armature/_Root/Hips/Spine/Spine1/Spine2/LeftShoulder
+    m_Weight: 1
+  - m_Path: Armature/_Root/Hips/Spine/Spine1/Spine2/LeftShoulder/LeftArm
+    m_Weight: 1
+  - m_Path: Armature/_Root/Hips/Spine/Spine1/Spine2/LeftShoulder/LeftArm/LeftForeArm
+    m_Weight: 1
+  - m_Path: Armature/_Root/Hips/Spine/Spine1/Spine2/Neck
+    m_Weight: 1
+  - m_Path: Armature/_Root/Hips/Spine/Spine1/Spine2/Neck/Head
+    m_Weight: 1
+  - m_Path: Armature/_Root/Hips/Spine/Spine1/Spine2/RightShoulder
+    m_Weight: 1
+  - m_Path: Armature/_Root/Hips/Spine/Spine1/Spine2/RightShoulder/RightArm
+    m_Weight: 1
+  - m_Path: Armature/_Root/Hips/Spine/Spine1/Spine2/RightShoulder/RightArm/RightForeArm
+    m_Weight: 1
+  - m_Path: Armature/Axe
+    m_Weight: 1
+  - m_Path: Axe
+    m_Weight: 0
+  - m_Path: Kratos
+    m_Weight: 0
+  - m_Path: Shield
+    m_Weight: 0
