@@ -8,7 +8,10 @@ public class K_ShieldState : K_BaseState
 
     public override void Enter(K_Manager manager)
     {
-        if (manager.Anim.GetBool(manager.anim_IsAxePicked)) manager.K_Axe.EnableThrowAxe();
+        // disable axe slash effect
+        manager.K_Axe.ActivateSlashEffect(0);
+
+        if (manager.K_Axe.IsAxePicked) manager.K_Axe.EnableThrowAxe();
         else manager.K_Axe.EnableHoldAxe();
     }
 

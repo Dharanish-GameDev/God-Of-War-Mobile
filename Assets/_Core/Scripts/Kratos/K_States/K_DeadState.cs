@@ -6,6 +6,9 @@ public class K_DeadState : K_BaseState
 {
     public override void Enter(K_Manager manager)
     {
+        // disable axe slash effect
+        manager.K_Axe.ActivateSlashEffect(0);
+
         manager.StopMovement();
         manager.K_Axe.CancelAxeRecall();
         manager.K_Shield.CloseShield();

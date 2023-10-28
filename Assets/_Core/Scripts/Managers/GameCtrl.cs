@@ -13,6 +13,8 @@ public class GameCtrl : MonoBehaviour
     public float SFXVolume;
     public Vector2Int CameraRotationSpeed;
     public Vector2Int AimCameraRotationSpeed;
+    public Vector2 CameraRotationSpeedValue;
+    public Vector2 AimCameraRotationSpeedValue;
     public bool InvertHorizontalRotation;
     public bool InvertVerticalRotation;
     
@@ -31,7 +33,7 @@ public class GameCtrl : MonoBehaviour
         else Destroy(gameObject);
 
         // initialize settings
-        //InitSettings();
+        InitSettings();
 
         initialTimeScale = Time.timeScale;
         initialFixedDeltaTime = Time.fixedDeltaTime;
@@ -46,9 +48,21 @@ public class GameCtrl : MonoBehaviour
     }
 
     // Public Methods
-    public void SetMusicVolume(float volume) => MusicVolume = volume;
+    public void SetMusicVolume(float volume)
+    {
+        MusicVolume = volume;
+        AudioListener.volume = MusicVolume;
 
-    public void SetSFXVolume(float volume) => SFXVolume = volume;
+        // handle bg audio
+        if (MusicVolume <= 0 && AudioManager.Instance.BGAudioSource.isPlaying) AudioManager.Instance.BGAudioSource.Stop();
+        else if (MusicVolume > 0 && !AudioManager.Instance.BGAudioSource.isPlaying) AudioManager.Instance.BGAudioSource.Play();
+    }
+
+    public void SetSFXVolume(float volume)
+    {
+        SFXVolume = volume;
+        AudioManager.Instance.BtnClickSource.volume = Mathf.Lerp(0.0f, 0.1f, Mathf.InverseLerp(0.0f, 1.0f, SFXVolume));
+    }
 
     public void StartSlowMotion(float slowTimeFactor, float duration = 0.0f)
     {
@@ -71,11 +85,16 @@ public class GameCtrl : MonoBehaviour
         SFXVolume = 1.0f;
 
         // camera
-        CameraRotationSpeed.x = 5;
-        CameraRotationSpeed.y = 5;
+        CameraRotationSpeed.x = 4;
+        CameraRotationSpeed.y = 4;
         AimCameraRotationSpeed.x = 5;
         AimCameraRotationSpeed.y = 5;
         InvertHorizontalRotation = false;
         InvertVerticalRotation = false;
+
+        CameraRotationSpeedValue.x = CameraRotationSpeed.x * (InvertHorizontalRotation ? -1 : 1);
+        CameraRotationSpeedValue.y = CameraRotationSpeed.y * (InvertVerticalRotation ? -1 : 1);
+        AimCameraRotationSpeedValue.x = Mathf.Lerp(0.1f, 1.0f, Mathf.InverseLerp(1, 10, AimCameraRotationSpeed.x));
+        AimCameraRotationSpeedValue.y = Mathf.Lerp(0.1f, 1.0f, Mathf.InverseLerp(1, 10, AimCameraRotationSpeed.y));
     }
 }

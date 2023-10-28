@@ -6,6 +6,7 @@ public class AxeCtrl : MonoBehaviour
 {
     [SerializeField] private K_Manager manager;
     [SerializeField] private Rigidbody rb;
+    [SerializeField] private Collider handleColl;
     [SerializeField] private float rotateSpeed = 25.0f;
     [SerializeField] private float throwRange = 30.0f;
     [SerializeField] private int damageAmount = 20;
@@ -74,16 +75,19 @@ public class AxeCtrl : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (isCancel) return;
+        if (isCancel || !isActivate) return;
 
         // axe reach the maximum range
         if (distance >= throwRange * throwRange) ApplyDownforce();
+
+        // stop falling after certain range
+        if (rb.position.y < -5.0f && isActivate) AxeHitsObstacle();
     }
 
     private void OnCollisionEnter(Collision collision)
     {
         // axe handle hits the object
-        if (isRecall) return;
+        if (isRecall || !isActivate) return;
 
         rb.useGravity = true;
         rotateSpeed = 900.0f;
@@ -91,28 +95,22 @@ public class AxeCtrl : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (isRecall) return;
+        if (isRecall || !isActivate) return;
 
-        // stop audio
-        if (source.isPlaying) source.Stop();
+        AxeHitsObstacle();
 
         // damage the enemy
         if (other.gameObject.CompareTag("Enemy") && !isDamaged)
         {
             isDamaged = true;
+            handleColl.enabled = false;
             LevelManager.Instance.TrollManager.TrollHealth.GiveDamage(damageAmount);
         }
 
-        // axe head hits the object
-        isActivate = false;
-        StopVelocity();
-        rb.useGravity = false;
-        rb.isKinematic = true;
-        isCancel = false;
+        // disable axe collider
+        if (other.gameObject.CompareTag("TrollStone")) handleColl.enabled = false;
 
-        // stop playing effects
-        smokeEffectObj.SetActive(false);
-        returnedEffectObj.SetActive(false);
+        transform.SetParent(other.transform);
     }
 
     // Property Methods
@@ -143,6 +141,8 @@ public class AxeCtrl : MonoBehaviour
         // play axe recall audio
         if (isRecall)
         {
+            handleColl.enabled = true;
+            transform.SetParent(null);
             source.clip = axeRecallClip;
             source.Play();
         }
@@ -161,7 +161,7 @@ public class AxeCtrl : MonoBehaviour
         // stop the rigidbody movement
         tempVelocity = Vector3.zero;
         rb.velocity = tempVelocity;
-        rb.inertiaTensor = tempVelocity;
+        //rb.inertiaTensor = tempVelocity;
     }
 
     private void ApplyDownforce()
@@ -171,5 +171,23 @@ public class AxeCtrl : MonoBehaviour
         tempVelocity = rb.velocity;
         tempVelocity.y -= 2.0f;
         rb.velocity = tempVelocity;
+    }
+
+    private void AxeHitsObstacle()
+    {
+        StopVelocity();
+
+        // stop audio
+        if (source.isPlaying) source.Stop();
+
+        // axe head hits the object
+        isActivate = false;
+        rb.isKinematic = true;
+        rb.useGravity = false;
+        isCancel = false;
+
+        // stop playing effects
+        smokeEffectObj.SetActive(false);
+        returnedEffectObj.SetActive(false);
     }
 }

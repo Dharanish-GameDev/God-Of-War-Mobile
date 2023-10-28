@@ -52201,17 +52201,17 @@ AnimationClip:
     floatParameter: 0
     intParameter: 11
     messageOptions: 0
+  - time: 1.0833334
+    functionName: ActivateSlashEffect
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
   - time: 1.125
     functionName: StopAttack
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 1
-    messageOptions: 0
-  - time: 1.1666666
-    functionName: ActivateSlashEffect
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
     messageOptions: 0

@@ -56,6 +56,9 @@ public class K_Dodge : MonoBehaviour
                 manager.Anim.SetInteger(manager.anim_DodgeDirX, 0);
                 manager.Anim.SetInteger(manager.anim_DodgeDirY, 1);
                 manager.Rb.AddForce(800 * transform.forward, ForceMode.Impulse);
+
+                // switch state
+                manager.SwitchState(manager.dodgeState);
             }
             // back
             else if (Mathf.Round(manager.InputDir.z) < 0f && Mathf.Round(manager.InputDir.x) <= 0f)
@@ -64,6 +67,9 @@ public class K_Dodge : MonoBehaviour
                 manager.Anim.SetInteger(manager.anim_DodgeDirX, 0);
                 manager.Anim.SetInteger(manager.anim_DodgeDirY, -1);
                 manager.Rb.AddForce(800 * (transform.forward * -1), ForceMode.Impulse);
+
+                // switch state
+                manager.SwitchState(manager.dodgeState);
             }
             // left
             else if (Mathf.Round(manager.InputDir.x) < 0f && Mathf.Round(manager.InputDir.z) >= 0f)
@@ -72,6 +78,9 @@ public class K_Dodge : MonoBehaviour
                 manager.Anim.SetInteger(manager.anim_DodgeDirX, -1);
                 manager.Anim.SetInteger(manager.anim_DodgeDirY, 0);
                 manager.Rb.AddForce(800 * (transform.right * -1), ForceMode.Impulse);
+
+                // switch state
+                manager.SwitchState(manager.dodgeState);
             }
             // right
             else if (Mathf.Round(manager.InputDir.x) > 0f && Mathf.Round(manager.InputDir.z) <= 0f)
@@ -80,10 +89,10 @@ public class K_Dodge : MonoBehaviour
                 manager.Anim.SetInteger(manager.anim_DodgeDirX, 1);
                 manager.Anim.SetInteger(manager.anim_DodgeDirY, 0);
                 manager.Rb.AddForce(800 * transform.right, ForceMode.Impulse);
-            }
 
-            // switch state
-            manager.SwitchState(manager.dodgeState);
+                // switch state
+                manager.SwitchState(manager.dodgeState);
+            }
         }
     }
 }

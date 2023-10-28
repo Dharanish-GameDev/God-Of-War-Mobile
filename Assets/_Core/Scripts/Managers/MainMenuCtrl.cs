@@ -1,7 +1,5 @@
-using System.Collections;
 using UnityEngine;
 using TMPro;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 /// <summary>
@@ -35,6 +33,12 @@ public class MainMenuCtrl : MonoBehaviour
     [SerializeField] private Button AimVRSIncreaseBtn, AimVRSDecreaseBtn;
     [SerializeField] private TMP_Text AimHRSText, AimVRSText;
 
+    private void Awake()
+    {
+        // set bg audio to mainmenu
+        AudioManager.Instance.PlayBGAudio(BGAudio.Name.Mainmenu);
+    }
+
     private void Start()
     {
         // initialize settings
@@ -51,6 +55,19 @@ public class MainMenuCtrl : MonoBehaviour
     public void Quit()
     {
         Application.Quit();
+    }
+
+    public void PlayBtnClickSound()
+    {
+        AudioManager.Instance.BtnClickSource.Play();
+    }
+
+    public void UpdateCameraSettingsValue()
+    {
+        GameCtrl.Instance.CameraRotationSpeedValue.x = GameCtrl.Instance.CameraRotationSpeed.x * (GameCtrl.Instance.InvertHorizontalRotation ? -1 : 1);
+        GameCtrl.Instance.CameraRotationSpeedValue.y = GameCtrl.Instance.CameraRotationSpeed.y * (GameCtrl.Instance.InvertVerticalRotation ? -1 : 1);
+        GameCtrl.Instance.AimCameraRotationSpeedValue.x = Mathf.Lerp(0.1f, 1.0f, Mathf.InverseLerp(1, 10, GameCtrl.Instance.AimCameraRotationSpeed.x));
+        GameCtrl.Instance.AimCameraRotationSpeedValue.y = Mathf.Lerp(0.1f, 1.0f, Mathf.InverseLerp(1, 10, GameCtrl.Instance.AimCameraRotationSpeed.y));
     }
 
     // Audio Settings Methods

@@ -102,7 +102,7 @@ public class Troll_Manager : MonoBehaviour
 
     private void Update()
     {
-        if (currentState != null)
+        if (currentState == null) return;
 
         // update attack timer
         UpdateAttackTimer();
@@ -149,6 +149,9 @@ public class Troll_Manager : MonoBehaviour
     private void Event_OnDead()
     {
         SwitchState(deadState);
+        LevelManager.Instance.StopKratosDamageIndication();
+
+        AudioManager.Instance.PlayBGAudio(BGAudio.Name.Victory);
 
         // show victory panel
         Invoke(nameof(StopGamePlay), 4f);
@@ -160,10 +163,13 @@ public class Troll_Manager : MonoBehaviour
         CameraShake.Instance.StartShake(7f, 0.25f);
         AudioManager.Instance.PlayTrollAudioAtPoint(TrollSfx.Name.Kick, transform.position);
 
-        // invoke kick attack event
-        tempPos = transform.position + ((LevelManager.Instance.KratosManager.transform.position - transform.position).normalized * (kickRange + 2.0f));
-        tempPos.y = LevelManager.Instance.KratosManager.transform.position.y;
-        OnKickAttack?.Invoke(tempPos);
+        // invoke kick attack event to damage kratos
+        if (Physics.OverlapSphereNonAlloc(transform.position, kickRange, playerColl, playerLayer) == 1)
+        {
+            tempPos = transform.position + ((LevelManager.Instance.KratosManager.transform.position - transform.position).normalized * (kickRange + 2.0f));
+            tempPos.y = LevelManager.Instance.KratosManager.transform.position.y;
+            OnKickAttack?.Invoke(tempPos);
+        }
     }
 
     public void AttackPerformed(int value)
@@ -388,7 +394,7 @@ public class Troll_Manager : MonoBehaviour
     private void StopGamePlay()
     {
         LevelManager.Instance.StopGameplay();
-        Invoke(nameof(ShowVictoryPanel), 2f);
+        Invoke(nameof(ShowVictoryPanel), 0.5f);
     }
 
     private void ShowVictoryPanel()

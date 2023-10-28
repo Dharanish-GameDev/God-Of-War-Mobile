@@ -36,6 +36,7 @@ public class LevelManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+        AudioManager.Instance.PlayBGAudio(BGAudio.Name.TrollBattle);
     }
 
     private void Start()
@@ -70,12 +71,25 @@ public class LevelManager : MonoBehaviour
         ScenesCtrl.Instance.LoadScene(sceneIndex);
     }
 
+    public void PlayBtnClickSound()
+    {
+        AudioManager.Instance.BtnClickSource.Play();
+    }
+
     // Public Methods
     public void StopGameplay()
     {
         mobileControls.SetActive(false);
         camCtrl.enabled = false;
         k_Manager.enabled = false;
+        k_Manager.K_Axe.CancelAxeRecall();
+        k_Manager.K_Shield.CloseShield();
+    }
+
+    public void StopKratosDamageIndication()
+    {
+        k_Manager.K_DamageIndicator.HideDamageIndicator();
+        k_Manager.BreatheAudioSource.Stop();
     }
 
     public void ShowVictoryPanel()

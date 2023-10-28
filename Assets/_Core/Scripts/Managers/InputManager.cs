@@ -30,6 +30,7 @@ public class InputManager : MonoBehaviour
     [SerializeField] private FixedButton shieldBtn;
     [SerializeField] private FixedButton dodgeBtn;
     [SerializeField] private DodgeCountBtn dodgeCountBtn;
+    [SerializeField] private FixedButton healBtn;
 
     // Private Variable
     private Vector2 mouseInput;
@@ -45,6 +46,7 @@ public class InputManager : MonoBehaviour
     public MovementBtn MovementBtn { get { return movementBtn; } }
     public AimCtrlBtn AimCtrlBtn { get { return aimCtrlBtn; } }
     public DodgeCountBtn DodgeCountBtn { get { return dodgeCountBtn; } }
+    public FixedButton HealBtn { get { return healBtn; } }
 
     public Vector2 TouchDist 
     { 
@@ -60,14 +62,14 @@ public class InputManager : MonoBehaviour
             {
                 if (IsAimJoystickBtnPressed)
                 {
-                    mouseInput.x = aimJoystick.Horizontal;
-                    mouseInput.y = -aimJoystick.Vertical;
+                    mouseInput.x = aimJoystick.Horizontal * GameCtrl.Instance.AimCameraRotationSpeedValue.x;
+                    mouseInput.y = -aimJoystick.Vertical * GameCtrl.Instance.AimCameraRotationSpeedValue.y;
                     return mouseInput;
                 }
                 else
                 {
-                    mouseInput.x = touchArea.TouchDist.x * GameCtrl.Instance.CameraRotationSpeed.x * (GameCtrl.Instance.InvertHorizontalRotation ? -1 : 1);
-                    mouseInput.y = -touchArea.TouchDist.y * GameCtrl.Instance.CameraRotationSpeed.y * (GameCtrl.Instance.InvertVerticalRotation ? -1 : 1);
+                    mouseInput.x = touchArea.TouchDist.x * GameCtrl.Instance.CameraRotationSpeedValue.x;
+                    mouseInput.y = -touchArea.TouchDist.y * GameCtrl.Instance.CameraRotationSpeedValue.y;
                     return mouseInput;
                 }
             }
@@ -160,9 +162,18 @@ public class InputManager : MonoBehaviour
 
         }
     }
+    public bool IsHealButtonPressed
+    {
+        get
+        {
+            return (type == InputType.Pc) ? Input.GetKeyDown(KeyCode.F) : healBtn.IsPressed;
+        }
+    }
 
     private void Awake()
     {
         Instance = this;
+
+        healBtn.gameObject.SetActive(false);
     }
 }

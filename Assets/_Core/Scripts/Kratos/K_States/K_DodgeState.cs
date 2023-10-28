@@ -6,6 +6,15 @@ public class K_DodgeState : K_BaseState
 {
     private bool isDodgeRoll;
 
+    public override void Enter(K_Manager manager)
+    {
+        // disable axe slash effect
+        manager.K_Axe.ActivateSlashEffect(0);
+
+        if (manager.K_Axe.IsAxePicked) manager.K_Axe.EnableThrowAxe();
+        else manager.K_Axe.EnableHoldAxe();
+    }
+
     public override void Update(K_Manager manager)
     {
         if (isDodgeRoll) return;
@@ -33,6 +42,9 @@ public class K_DodgeState : K_BaseState
 
     public override void Exit(K_Manager manager)
     {
+        // disable axe slash effect
+        manager.K_Axe.ActivateSlashEffect(0);
+
         // reset dodge press count
         InputManager.Instance.DodgeCountBtn.ResetPressCount();
 

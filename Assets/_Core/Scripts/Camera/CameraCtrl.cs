@@ -124,14 +124,14 @@ public class CameraCtrl : MonoBehaviour
             // continuous rotation when aim joystick stick reach the edge
             if (InputManager.Instance.AimJoystick.Distance >= 90)           // 90 refers to the max aim joystick move distance 100 - 10 = 90
             {
-                targetRot.x -= InputManager.Instance.AimJoystick.Direction.y / 3;
-                targetRot.y += InputManager.Instance.AimJoystick.Direction.x / 3;
+                targetRot.x += InputManager.Instance.TouchDist.y;
+                targetRot.y += InputManager.Instance.TouchDist.x;
             }
             // rotate when stick is moving
             else if (InputManager.Instance.AimJoystick.IsMoving)
             {
-                targetRot.x -= InputManager.Instance.AimJoystick.Direction.y / 3;
-                targetRot.y += InputManager.Instance.AimJoystick.Direction.x / 3;
+                targetRot.x += InputManager.Instance.TouchDist.y;
+                targetRot.y += InputManager.Instance.TouchDist.x;
             }
         }
         // screen swipe rotation

@@ -5,6 +5,7 @@ using UnityEngine.UI;
 /// <summary>
 /// Handles the damage indication given to player based on the kratos health.
 /// </summary>
+[RequireComponent(typeof(K_Manager))]
 public class K_DamageIndicator : MonoBehaviour
 {
     [Header("References")]
@@ -79,6 +80,15 @@ public class K_DamageIndicator : MonoBehaviour
             isFadeComplete = false;
             damageImage.gameObject.SetActive(false);
         }
+    }
+
+    // Public Methods
+    public void HideDamageIndicator()
+    {
+        isFade = false;
+        isFadeComplete = false; 
+        damageImage.gameObject.SetActive(false);
+        CancelInvoke();
     }
 
     // Private Methods

@@ -6,6 +6,7 @@ using UnityEngine;
 /// Manages the behaviour of the kratos [such as idle, walk, run, attack, dead]
 /// </summary>
 [RequireComponent(typeof(K_Dodge), typeof(K_Shield), typeof(K_Axe))]
+[RequireComponent(typeof(K_DamageIndicator))]
 public class K_Manager : MonoBehaviour
 {
     #region States
@@ -92,9 +93,11 @@ public class K_Manager : MonoBehaviour
     public Animator Anim { get { return anim; } }
     public Rigidbody Rb { get { return rb; } }
     public BaseHealth KratosHealth { get { return kratosHealth; } }
+    public AudioSource BreatheAudioSource { get { return breatheAudioSrc; } }
     public K_Dodge K_Dodge { get; private set; }
     public K_Shield K_Shield { get; private set; }
     public K_Axe K_Axe { get; private set; }
+    public K_DamageIndicator K_DamageIndicator { get; private set; }
     public Vector3 InputDir { get; private set; }
     public Vector3 DamageMovePos { get; private set; }
     public float MoveSpeed { get { return moveSpeed; } }
@@ -107,6 +110,7 @@ public class K_Manager : MonoBehaviour
         K_Dodge = gameObject.GetComponent<K_Dodge>();
         K_Shield = gameObject.GetComponent<K_Shield>();
         K_Axe = gameObject.GetComponent<K_Axe>();
+        K_DamageIndicator = gameObject.GetComponent<K_DamageIndicator>();
 
         // set starting state
         activeState = "Idle";
@@ -143,16 +147,6 @@ public class K_Manager : MonoBehaviour
     {
         // dead
         if (IsDead) return;
-
-        if (Input.GetKeyDown(KeyCode.Y))
-        {
-            kratosHealth.GiveDamage(10);
-        }
-
-        if (Input.GetKeyDown(KeyCode.U))
-        {
-            kratosHealth.GiveHealth(10);
-        }
 
         // calculate input
         tempVec.x = InputManager.Instance.Horizontal;
@@ -311,6 +305,7 @@ public class K_Manager : MonoBehaviour
         // collect heal orb
         if (healOrb) healOrb.Heal(this);
         healOrb.ShowActive(false);
+        InputManager.Instance.HealBtn.gameObject.SetActive(false);
         healOrb = null;
     }
 
@@ -509,6 +504,7 @@ public class K_Manager : MonoBehaviour
             // deactivate healorb
             if (healOrb)
             {
+                InputManager.Instance.HealBtn.gameObject.SetActive(false);
                 healOrb.ShowActive(false);
                 healOrb = null;
             }
@@ -520,11 +516,14 @@ public class K_Manager : MonoBehaviour
         if (!healOrb)
         {
             if (orbChecks[0].TryGetComponent(out healOrb))
+            {
                 healOrb.ShowActive(true);
+                InputManager.Instance.HealBtn.gameObject.SetActive(true);
+            }
         }
 
         // Press 'F' key to collect heal orb
-        if (Input.GetKeyDown(KeyCode.F))
+        if (InputManager.Instance.IsHealButtonPressed)
         {
             // Play heal audio
             AudioManager.Instance.PlayKratosAudioAtPoint(KratosSfx.Name.Heal, transform.position);

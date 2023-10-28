@@ -11,12 +11,17 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private List<KratosSfx> kratosAudioList;
     [SerializeField] private List<TrollSfx> trollAudioList;
 
-    [SerializeField] private AudioSource bgSorce;
+    [SerializeField] private AudioSource bgSource;
     [SerializeField] private GameObject oneshotAudioPrefab;
+    [SerializeField] private AudioSource btnClickSource;
 
     // Private Variable
     private ObjectPool<OneShotAudio> audioPool;
     private OneShotAudio tempOneShotAudio;
+
+    // Properties
+    public AudioSource BGAudioSource { get { return bgSource; } }
+    public AudioSource BtnClickSource { get { return btnClickSource; } }
 
     private void Awake()
     {
@@ -45,16 +50,16 @@ public class AudioManager : MonoBehaviour
             );
 
         // start BG Audio
-        SetBGAudio(BGAudio.Name.Mainmenu);
+        PlayBGAudio(BGAudio.Name.Mainmenu);
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.N)) SetBGAudio(BGAudio.Name.TrollBattle);
-        else if (Input.GetKeyDown(KeyCode.M)) SetBGAudio(BGAudio.Name.Mainmenu);
+        if (Input.GetKeyDown(KeyCode.N)) PlayBGAudio(BGAudio.Name.TrollBattle);
+        else if (Input.GetKeyDown(KeyCode.M)) PlayBGAudio(BGAudio.Name.Mainmenu);
     }
 
-    public void SetBGAudio(BGAudio.Name name)
+    public void PlayBGAudio(BGAudio.Name name)
     {
         for (int i = 0; i < bgAudioList.Count; i++)
         {
@@ -62,10 +67,10 @@ public class AudioManager : MonoBehaviour
             //if (bgAudioList[i].clip.Equals(bgSorce.clip)) continue;
 
             // play new bg
-            bgSorce.clip = bgAudioList[i].clip;
-            bgSorce.volume = bgAudioList[i].volume;
-            bgSorce.loop = bgAudioList[i].isLoop;
-            bgSorce.Play();
+            bgSource.clip = bgAudioList[i].clip;
+            bgSource.volume = bgAudioList[i].volume;
+            bgSource.loop = bgAudioList[i].isLoop;
+            bgSource.Play();
             break;
         }
     }
@@ -120,7 +125,7 @@ public class BGAudio : BaseAudio
 {
     public enum Name
     {
-        Mainmenu, TrollBattle
+        Mainmenu, TrollBattle, Victory
     }
     public Name name;
 

@@ -187,7 +187,6 @@ public class K_Axe : MonoBehaviour
         axeCtrl.SmokeEffectObj.SetActive(false);
 
         // convert recall btn into aim joystick
-        InputManager.Instance.AimCtrlBtn.ChangeRecallBtnAimJoystick();
         CameraShake.Instance.StartShake(5f, 0.15f);
 
         // reset values
@@ -217,6 +216,10 @@ public class K_Axe : MonoBehaviour
         else manager.SwitchState(manager.axeIdleState);
     }
     
+    public void AxeRecallComplete()
+    {
+        InputManager.Instance.AimCtrlBtn.ChangeRecallBtnAimJoystick();
+    }
 
     public void ActivateSlashEffect(int value)
     {
