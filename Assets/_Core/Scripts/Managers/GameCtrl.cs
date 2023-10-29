@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -61,7 +59,7 @@ public class GameCtrl : MonoBehaviour
     public void SetSFXVolume(float volume)
     {
         SFXVolume = volume;
-        AudioManager.Instance.BtnClickSource.volume = Mathf.Lerp(0.0f, 0.1f, Mathf.InverseLerp(0.0f, 1.0f, SFXVolume));
+        AudioManager.Instance.BtnClickSource.volume = volume;
     }
 
     public void StartSlowMotion(float slowTimeFactor, float duration = 0.0f)
@@ -85,8 +83,8 @@ public class GameCtrl : MonoBehaviour
         SFXVolume = 1.0f;
 
         // camera
-        CameraRotationSpeed.x = 4;
-        CameraRotationSpeed.y = 4;
+        CameraRotationSpeed.x = 5;
+        CameraRotationSpeed.y = 5;
         AimCameraRotationSpeed.x = 3;
         AimCameraRotationSpeed.y = 3;
         InvertHorizontalRotation = false;

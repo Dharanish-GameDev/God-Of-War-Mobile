@@ -13,6 +13,7 @@ public class K_DamageIndicator : MonoBehaviour
     [SerializeField] private Image damageImage;
 
     [Header("Value")]
+    [SerializeField] private float damageIndicationHealth = 30;
     [SerializeField] private float updateTime = 0.05f;
     [SerializeField] private float fadeAmount = 0.1f;
     [SerializeField] private float alpha = 0.9f;
@@ -49,7 +50,7 @@ public class K_DamageIndicator : MonoBehaviour
     // Event Methods
     private void Event_OnKratosDamage(float currentHealth)
     {
-        canShowDamage = currentHealth < 30;
+        canShowDamage = currentHealth <= damageIndicationHealth;
 
         // cannot show damage
         if (!canShowDamage) return;
@@ -72,7 +73,7 @@ public class K_DamageIndicator : MonoBehaviour
         if (!canShowDamage) return;
 
         // good condition
-        if (currentHealth >= 30 && canShowDamage)
+        if (currentHealth > damageIndicationHealth && canShowDamage)
         {
             // hide damage indicator
             canShowDamage = false;
