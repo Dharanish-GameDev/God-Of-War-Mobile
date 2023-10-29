@@ -39,7 +39,7 @@ public class Troll_WalkState : Troll_BaseState
         if (!isTimerSet)
         {
             isTimerSet = true;
-            timer = Random.Range(1, 2);
+            timer = Random.Range(10, 15);
         }
 
         // update timer
@@ -49,8 +49,8 @@ public class Troll_WalkState : Troll_BaseState
             // calculate percent
             percent = Random.Range(0.0f, 1.0f);
 
-            // 50% chance to scream
-            if (percent >= 1 - 0.5f) manager.SwitchState(manager.screamState);
+            // 25% chance to scream
+            if (percent >= 1 - 0.75f) manager.SwitchState(manager.screamState);
             else isTimerSet = false;
         }
     }

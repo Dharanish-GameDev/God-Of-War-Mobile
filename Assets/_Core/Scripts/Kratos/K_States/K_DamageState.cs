@@ -2,6 +2,8 @@ public class K_DamageState : K_BaseState
 {
     public override void Enter(K_Manager manager)
     {
+        GameCtrl.Instance.StopSlowMotion();
+
         // disable axe slash effect
         manager.K_Axe.ActivateSlashEffect(0);
 

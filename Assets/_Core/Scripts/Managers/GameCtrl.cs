@@ -87,8 +87,8 @@ public class GameCtrl : MonoBehaviour
         // camera
         CameraRotationSpeed.x = 4;
         CameraRotationSpeed.y = 4;
-        AimCameraRotationSpeed.x = 5;
-        AimCameraRotationSpeed.y = 5;
+        AimCameraRotationSpeed.x = 3;
+        AimCameraRotationSpeed.y = 3;
         InvertHorizontalRotation = false;
         InvertVerticalRotation = false;
 
